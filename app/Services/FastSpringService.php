@@ -7,94 +7,78 @@ use Illuminate\Support\Facades\Http;
 
 class FastSpringService
 {
-  public $client;
-  public $baseUrl;
+    public $client;
+    public $baseUrl;
 
-  public function __construct()
-  {
-    $this->client = Http::baseUrl('https://api.fastspring.com/')
-      ->withHeaders([
-        'accept' => 'application/json',
-        'content-type' => 'application/json',
-      ])
-      ->withBasicAuth(config('fsportal.fastspring.username'), config('fsportal.fastspring.password'));
-  }
+    public function __construct()
+    {
+        $this->client = Http::baseUrl('https://api.fastspring.com/')
+            ->withHeaders([
+                'accept' => 'application/json',
+                'content-type' => 'application/json',
+            ])
+            ->withBasicAuth(config('fsportal.fastspring.username'), config('fsportal.fastspring.password'));
+    }
 
-  public function getAccount($account_id): array
-  {
-    $response = $this->client->get("accounts/$account_id", []);
+    public function getAccount($account_id): array
+    {
+        $response = $this->client->get("accounts/$account_id", []);
 
-    return $response->json();
-  }
+        return $response->json();
+    }
 
-  public function getManagementUrl($account_id): string
-  {
-    $response = $this->client->get("accounts/$account_id/authenticate");
+    public function getManagementUrl($account_id): string
+    {
+        $response = $this->client->get("accounts/$account_id/authenticate");
 
-    return Arr::get($response->json()['accounts'][0], 'url');
-  }
+        return Arr::get($response->json()['accounts'][0], 'url');
+    }
 
-  public function getSubscription($subscription_id): array
-  {
-    $response = $this->client->get("subscriptions/$subscription_id");
+    public function getSubscription($subscription_id): array
+    {
+        $response = $this->client->get("subscriptions/$subscription_id");
 
-    return $response->json();
-  }
+        return $response->json();
+    }
 
-  // public function updateSubscriptionProduct(string $subscription_id, string $product_code): array
-  // {
-  //   $response = $this->client->post("subscriptions", [
-  //     'subscriptions' => [
-  //       [
-  //         'subscription' => $subscription_id,
-  //         'product' => $product_code,
-  //         'quantity' => 1,                             // quantity of the new product
-  //         'prorate' => true,
-  //         'coupons' => ['BETANINJA99'],
-  //       ]
-  //     ]
-  //   ]);
+    // public function updateSubscriptionProduct(string $subscription_id, string $product_code): array
+    // {
+    //   $response = $this->client->post("subscriptions", [
+    //     'subscriptions' => [
+    //       [
+    //         'subscription' => $subscription_id,
+    //         'product' => $product_code,
+    //         'quantity' => 1,                             // quantity of the new product
+    //         'prorate' => true,
+    //         'coupons' => ['BETANINJA99'],
+    //       ]
+    //     ]
+    //   ]);
 
-  //   return $response->json();
-  // }
-
-  // public function deleteSubscription(string $subscription_id)
-  // {
-  //   $response = $this->client->delete("subscriptions/$subscription_id");
-
-  //   return [
-  //     'success' => Arr::get($response, 'subscriptions.0.result') === 'success',
-  //     'response' => $response,
-  //   ];
-  // }
+    //   return $response->json();
+    // }
 
 
-  // public function getOrder($order_id): array
-  // {
-  //   $response = $this->client->get("orders/$order_id");
+    public function updateAccount(string $account_id, array $data)
+    {
+        $response = $this->client->post("accounts/$account_id", $data);
 
-  //   return $response->json();
-  // }
+        return Arr::get($response->json(), 'result');
+    }
 
+    public function pauseSubscription(string $subscription_id)
+    {
+        $response = $this->client->post("subscriptions/$subscription_id/pause", [
+            'pausePeriodCount' => 1
+        ]);
 
-  // public function getProduct(string $plan_name)
-  // {
-  //   $response = $this->client->get("products/$plan_name");
+        return Arr::get($response->json(), 'result');
+    }
 
-  //   return $response->json();
-  // }
+    public function resumeSubscription(string $subscription_id)
+    {
+        $response = $this->client->post("subscriptions/$subscription_id/resume", []);
 
-  // public function requestEditUrl(string $account_id)
-  // {
-  //   $response = $this->client->get("accounts/$account_id/authenticate");
-
-  //   return $response->json();
-  // }
-
-  public function updateAccount(string $account_id, array $data)
-  {
-    $response = $this->client->post("accounts/$account_id", $data);
-
-    return $response->json();
-  }
+        return Arr::get($response->json(), 'result');
+    }
 }

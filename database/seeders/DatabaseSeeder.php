@@ -16,14 +16,20 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        // \App\Models\User::factory()->create([
+        //     'username' => 'Fast Spring',
+        //     'name' => 'Fast',
+        //     'surname' => 'Spring',
+        //     'email' => 'test@fastspring.com',
+        //     'password' => bcrypt('FastSpring1234'),
+        //     'fs_account_id' => 'Po4-MoBxTCCr9iGvp7bG8w'
+        // ]);
         \App\Models\User::factory()->create([
-            'username' => 'Fast Spring',
-            'name' => 'Fast',
-            'surname' => 'Spring',
-            'email' => 'test@fastspring.com',
-            'password' => bcrypt('FastSpring1234'),
-            'fs_account_id' => 'Po4-MoBxTCCr9iGvp7bG8w'
-            //nvXALr7mSQqpBQcqqqFAcQ - sub id
+            'username' => 'nugo skhir',
+            'name' => 'nugo',
+            'surname' => 'skhir',
+            'email' => 'nskhi@gmail.com',
+            'password' => bcrypt('nugo1234'),
         ]);
     }
 }

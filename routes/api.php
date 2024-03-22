@@ -33,5 +33,8 @@ Route::group(['controller' => FastSpringController::class], function () {
         // Route::get('/management-url/{id}', 'getManagementUrl')->name('fastspring.management-url');
         // Route::get('/subscription/{id}', 'getSubscription')->name('fastspring.subscription');
         Route::post('/account/update/{accountId}', 'updateAccount')->name('fastspring.account.update');
+        Route::post('/subscription/pause/{subscriptionId}', 'pauseSubscription')->name('fastspring.subscription.pause');
+        Route::post('/subscription/resume/{subscriptionId}', 'resumeSubscription')->name('fastspring.subscription.resume');
+        Route::post('/account-created/webhook', 'accountCreatedWebhook')->name('fastspring.webhook.account-created');
     });
 });
