@@ -24,12 +24,20 @@ class DatabaseSeeder extends Seeder
         //     'password' => bcrypt('FastSpring1234'),
         //     'fs_account_id' => 'Po4-MoBxTCCr9iGvp7bG8w'
         // ]);
+        // \App\Models\User::factory()->create([
+        //     'username' => 'nugo skhir',
+        //     'name' => 'nugo',
+        //     'surname' => 'skhir',
+        //     'email' => 'nskhi@gmail.com',
+        //     'password' => bcrypt('nugo1234'),
+        //     'fs_account_id' => 'zosgPO3mTpGNYjDCQnER1g'
+        // ]);
         \App\Models\User::factory()->create([
-            'username' => 'nugo skhir',
-            'name' => 'nugo',
-            'surname' => 'skhir',
-            'email' => 'nskhi@gmail.com',
-            'password' => bcrypt('nugo1234'),
+            'username' => 'Fast Spring',
+            'name' => 'Fast',
+            'surname' => 'Spring',
+            'email' => 'payment@fastspring.com',
+            'password' => bcrypt('FastSpring1234'),
         ]);
     }
 }

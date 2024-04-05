@@ -41,24 +41,6 @@ class FastSpringService
         return $response->json();
     }
 
-    // public function updateSubscriptionProduct(string $subscription_id, string $product_code): array
-    // {
-    //   $response = $this->client->post("subscriptions", [
-    //     'subscriptions' => [
-    //       [
-    //         'subscription' => $subscription_id,
-    //         'product' => $product_code,
-    //         'quantity' => 1,                             // quantity of the new product
-    //         'prorate' => true,
-    //         'coupons' => ['BETANINJA99'],
-    //       ]
-    //     ]
-    //   ]);
-
-    //   return $response->json();
-    // }
-
-
     public function updateAccount(string $account_id, array $data)
     {
         $response = $this->client->post("accounts/$account_id", $data);
