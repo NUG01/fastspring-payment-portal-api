@@ -26,11 +26,10 @@ class UserController extends Controller
             $fastspring_account = $fs_service->getAccount($user->fs_account_id);
             $management_url = $fs_service->getManagementUrl($user->fs_account_id);
 
-            $main_subscription = null;
-            $secondary_subscription = null;
-
             foreach (Arr::get($fastspring_account, 'subscriptions') as $sub_id) {
                 $sub = $fs_service->getSubscription($sub_id);
+                if (!Arr::get($sub, 'active')) continue;
+
                 if (Arr::get($sub, 'price') > 50) $main_subscription = $sub;
                 else $secondary_subscription = $sub;
             }
