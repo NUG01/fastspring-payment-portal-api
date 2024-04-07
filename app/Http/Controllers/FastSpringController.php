@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\FastSpringService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class FastSpringController extends Controller
 {
@@ -54,14 +55,15 @@ class FastSpringController extends Controller
     {
         $payload = $request->all();
 
-        $eventData = $payload['events'][0]['data'];
+        // Extract data from the payload
+        $eventData = Arr::get($payload, 'events.0.data');
 
-        $accountId = $eventData['account'];
-        $contact = $eventData['contact'];
-        $email = $contact['email'];
+        // Get the email from the payload
+        $email = Arr::get($eventData, 'contact.email');
 
+        // Update the user's fs_account_id (FastSpring account ID)
         User::where('email', $email)->update([
-            'fs_account_id' => $accountId,
+            'fs_account_id' => $eventData['account'],
         ]);
     }
 }

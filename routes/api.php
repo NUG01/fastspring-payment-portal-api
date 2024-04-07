@@ -29,9 +29,6 @@ Route::group(['controller' => UserController::class], function () {
 
 Route::group(['controller' => FastSpringController::class], function () {
     Route::group(['prefix' => 'fastspring'], function () {
-        // Route::get('/account/{id}', 'getAccount')->name('fastspring.account');
-        // Route::get('/management-url/{id}', 'getManagementUrl')->name('fastspring.management-url');
-        // Route::get('/subscription/{id}', 'getSubscription')->name('fastspring.subscription');
         Route::post('/account/update/{accountId}', 'updateAccount')->name('fastspring.account.update');
         Route::post('/subscription/pause/{subscriptionId}', 'pauseSubscription')->name('fastspring.subscription.pause');
         Route::post('/subscription/resume/{subscriptionId}', 'resumeSubscription')->name('fastspring.subscription.resume');
