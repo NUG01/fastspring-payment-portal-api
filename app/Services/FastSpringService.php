@@ -20,21 +20,21 @@ class FastSpringService
             ->withBasicAuth(config('fsportal.fastspring.username'), config('fsportal.fastspring.password'));
     }
 
-    public function getAccount($account_id): array
+    public function getAccount($account_id)
     {
         $response = $this->client->get("accounts/$account_id", []);
 
         return $response->json();
     }
 
-    public function getManagementUrl($account_id): string
+    public function getManagementUrl($account_id)
     {
         $response = $this->client->get("accounts/$account_id/authenticate");
 
         return Arr::get($response->json()['accounts'][0], 'url');
     }
 
-    public function getSubscription($subscription_id): array
+    public function getSubscription($subscription_id)
     {
         $response = $this->client->get("subscriptions/$subscription_id");
 
